@@ -71,6 +71,7 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
     left:0; width:100%;
     background-color: #212121;
     border-bottom: solid 1px rgba(255,255,255,.14);
+    text-transform: capitalize;
 
 }
 
@@ -147,10 +148,11 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
 
 .scroll {
     position: relative;
+    display: block;
     float: left;
     text-align: left;
-    height:100%;
     width:calc(100% - 290px);
+    height:auto;
     padding: 32px;
     overflow : hidden;
     overflow-y : scroll;
@@ -175,6 +177,7 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
     width: 105px;
     height: 150px;
     background-size: cover;
+    text-transform: capitalize;
     color: white;
 }
 

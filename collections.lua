@@ -1,7 +1,3 @@
-#!/usr/bin/env th
-
-
-
 local col = require 'async.repl'.colorize
 local mad = require './mad'
 local image = require 'image'
@@ -64,9 +60,8 @@ end
 
 function scroll()
    local divs = {}
-   local alldirs = dir.getdirectories('img')
-   local rdmdir = mad.sample(alldirs)
-   local files = mad.permute(mad.dir.imgs(rdmdir))
+   local files = mad.permute(mad.dir.imgs('img/collections'))
+   print(files)
    for i, file in ipairs(files)do
       table.insert(divs,
          mad.dom.DIV({
@@ -119,10 +114,10 @@ end
 
 
 --[[
-   ╔══════════════════════╗
-   ║                      ║
-   ║                      ║
-   ╚══════════════════════╝
+   ╔═══════╗
+   ║       ║
+   ║       ║
+   ╚═══════╝
 --]]
 
 
