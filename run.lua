@@ -99,55 +99,63 @@ function distort(idir)
       {type='translate',prob = 1, min=1./4., max=1./4.},
    }
 
-	local distortion = mad.permute(distortions)[1]
+   local distortion = mad.permute(distortions)[1]
    local fname = path.basename(idir)
    local files = mad.dir.imgs(idir)
    local nfile = #files
    if nfile > 600 then
-      local rdmlength = math.ceil(torch.uniform(900)+300)
-      local time = math.floor(rdmlength / 30)
+      local rdmlength = math.floor(torch.uniform(#files))
+      local time = math.min(math.max(math.floor(rdmlength/30),300),1200)
 
 
-   	local odir = path.basename(idir)..'/distorted/'..path.basename(idir)..'-DISTORT-'..distortion['type']..'_'..time..'s'
-   	dir.makepath(odir)
-   	local rdmstart = math.floor(torch.uniform(0,nfile-rdmlength))
-   	local rdmend = rdmstart + rdmlength
-   	print(col.yellow('Total:')..nfile)
+      local odir = '/Volumes/laeh/distorted'..path.basename(idir)..'-DISTORT-'..distortion['type']..'_'..time..'s'
+      dir.makepath(odir)
+      local rdmstart = math.floor(torch.uniform(0,nfile-rdmlength))
+      local rdmend = rdmstart + rdmlength
+      print(col.yellow('Total:')..nfile)
       print(col.yellow('Sample:')..rdmlength)
-   	print(col.yellow('istart:')..rdmstart)
-   	print(col.yellow('iend:')..rdmend)
-   	print(col.yellow('odir:')..odir)
+      print(col.yellow('istart:')..rdmstart)
+      print(col.yellow('iend:')..rdmend)
+      print(col.yellow('odir:')..odir)
       print{distortion}
-   	for i=rdmstart,rdmend do
-   	     xlua.progress(i-rdmstart,rdmlength)
-   	     local file = files[i]
+      for i=rdmstart,rdmend do
+           xlua.progress(i-rdmstart,rdmlength)
+           local file = files[i]
            local name = path.basename(file)
            local ofile = odir..'/'..name
-   	     local img = pixels.load(file)
-   	     img = pixels.distort(img, distortion):clone()
-   	     pixels.save(ofile,img)
-   	end
-   	local movieFile = odir..'.mp4'
-   	local sequenceCommand = './sequence -fps 30 '..odir.. '/*.jpg '..movieFile
-   	os.execute(sequenceCommand)
+           local img = pixels.load(file)
+           img = pixels.distort(img, distortion):clone()
+           pixels.save(ofile,img)
+      end
+      local movieFile = odir..'.mp4'
+      local sequenceCommand = './sequence -fps 30 '..odir.. '/*.jpg '..movieFile
+      os.execute(sequenceCommand)
       local deleteCommad = 'rm -r '..odir
       os.execute(deleteCommad)
-   	-- local mosaicFile = odir..'.jpg'
-   	-- local mosaicCommand = 'th mosaic.lua --idir '..odir
-   	-- os.execute(mosaicCommand)
+      -- local mosaicFile = odir..'.jpg'
+      -- local mosaicCommand = 'th mosaic.lua --idir '..odir
+      -- os.execute(mosaicCommand)
 
    end
 end
 
-            distort('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-1')
--- print(mad.dir.imgs('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-1'))
 
--- function process(idir)
--- 	for i = 1, 100 do
--- 		distort(idir)
--- 	end
--- end
+-- distort('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-3')
+-- distort('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-4')
+-- distort('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-5')
 
--- process('/Users/laeh/Movies/la/rahan')
+
+function process(idir)
+   for i = 1, 40 do
+      distort('/Volumes/laeh/originals/sat-22-nov-soho-williamsburg-1')
+      distort('/Volumes/laeh/originals/sat-22-nov-soho-williamsburg-2')
+      distort('/Volumes/laeh/originals/sat-22-nov-williamsburg-soho-1')
+      distort('/Volumes/laeh/originals/sat-22-nov-williamsburg-soho-2')
+      distort('/Volumes/laeh/originals/sat-22-nov-williamsburg-soho-3')
+      distort('/Volumes/laeh/originals/sat-22-nov-williamsburg-soho-4')
+      distort('/Volumes/laeh/originals/sat-22-nov-williamsburg-soho-5')
+   end
+end
+
+process('/Volumes/laeh/test')
 -- wget "http://r2.o2.vc/Hollywood%20Movies/Sparkle%20(2012)/Sparkle.2012.SCAM.iMR@n.1.3gp"
-

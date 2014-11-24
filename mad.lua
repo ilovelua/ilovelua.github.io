@@ -536,23 +536,68 @@ function mad.rdm.title()
    return table.concat(strings)
 end
 
--- -- Probs are uniform:
--- local nClasses = 26
--- local probs = torch.ones(nClasses)
--- probs:div(probs:sum())
 
--- -- Cumulative probs:
--- local cumProbs = probs:cumsum(1)
 
--- -- Sample:
--- local sample = function()
---    local seed = torch.uniform(0,1)
---    for i = 1,cumProbs:size(1) do
---       if cumProbs[i] >= seed then
---          return i
---       end
---    end
--- end
+-- EXAMPLE 1: uniform distribution:
+local nClasses = 5
+local probs = torch.ones(nClasses)
+probs:div(probs:sum())
+
+-- EXAMPLE 2: manual distribution:
+local nClasses = 5
+local probs = torch.Tensor({
+   008167,
+   001492,
+   002782,
+   004253,
+   012702,
+   002228,
+   002015,
+   006094,
+   006966,
+   000153,
+   000772,
+   004025,
+   002406,
+   006749,
+   007507,
+   001929,
+   000095,
+   005987,
+   006327,
+   009056,
+   002758,
+   000978,
+   002360,
+   000150,
+   001974,
+   000074,
+})
+probs:div(probs:sum())
+
+-- Cumulative probs:
+local cumProbs = probs:cumsum(1)
+
+-- Sample:
+local sample = function()
+   local seed = torch.uniform(0,1)
+   for i = 1,cumProbs:size(1) do
+      if cumProbs[i] >= seed then
+         return i
+      end
+   end
+end
+
+-- Verify distribution
+local samples = {}
+for i = 1,1e5 do
+   local s = sample()
+   samples[s] = (samples[s] or 0) + 1
+end
+print(samples)
+
+
+
 -- local english = {
 --     'a'=0.08167,
 --     'b'=0.01492,
