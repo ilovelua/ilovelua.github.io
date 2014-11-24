@@ -145,37 +145,63 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
 ╚══════════════════════╝
 
 */
+.scroll_section_header {
 
-.scroll {
+}
+.scroll_section {
     position: relative;
-    display: block;
-    float: left;
+    display: inline-block;
     text-align: left;
     width:calc(100% - 290px);
+    max-width: 1560px;
     height:auto;
     padding: 32px;
     overflow : hidden;
     overflow-y : scroll;
     background-color: #212121
 }
-.scroll .box {
+
+.scroll_section .scroll_section_content {
+    display: inline-block;
+    width: 100%;
+    margin-top: 30px;
+    height: auto;
+}
+
+.scroll_section .scroll_section_header {
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    text-align: left;
+}
+
+.scroll_section .scroll_section_header .title {
+    font-size: 22px;
+    color: white;
+    text-align: left;
+}
+
+.scroll_section .box {
     display: inline-block;
     width: 125px;
     height: 205px;
     padding-right: 20px;
 }
 
-.scroll .box .img {
+.scroll_section .box .img {
     width: 105;
     height: 155px;
     background-size: cover;
 }
 
-.scroll .box .text {
+.scroll_section .box .text {
     margin-top: 8px;
+    overflow: hidden;
     text-align: left;
+    /*background: green;*/
     width: 105px;
-    height: 150px;
+    height: 28px;
+    font-size: 12px;
     background-size: cover;
     text-transform: capitalize;
     color: white;
@@ -193,7 +219,7 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
 
 
 .links {
-    float: left;
+    float: right;
     height:100%;
     width:290px;
     padding:34px;
@@ -206,7 +232,7 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
 .links .box {
     width: 100%;
     margin-bottom: 8px;
-    border-bottom: solid 1px #2F2F2F;
+    /*border-bottom: solid 1px #2F2F2F;*/
 }
 
 .links .box .text {
@@ -215,7 +241,7 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
     font-size: 12px;
     line-height: 14px;
     color: #6A6A6F;
-    border-bottom: solid 1px #2F2F2F;
+    /*border-bottom: solid 1px #2F2F2F;*/
 }
 
 
@@ -237,4 +263,6 @@ form, input, textarea, div, span,ul,li, i, p, a, :link, :visited {
   height: 100%;
   border: solid 1px rgba(255,255,255,.14);
 }
+
+/*21px*/
 

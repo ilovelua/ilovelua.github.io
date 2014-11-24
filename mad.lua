@@ -536,6 +536,102 @@ function mad.rdm.title()
    return table.concat(strings)
 end
 
+-- -- Probs are uniform:
+-- local nClasses = 26
+-- local probs = torch.ones(nClasses)
+-- probs:div(probs:sum())
+
+-- -- Cumulative probs:
+-- local cumProbs = probs:cumsum(1)
+
+-- -- Sample:
+-- local sample = function()
+--    local seed = torch.uniform(0,1)
+--    for i = 1,cumProbs:size(1) do
+--       if cumProbs[i] >= seed then
+--          return i
+--       end
+--    end
+-- end
+-- local english = {
+--     'a'=0.08167,
+--     'b'=0.01492,
+--     'c'=0.02782,
+--     'd'=0.04253,
+--     'e'=0.12702,
+--     'f'=0.02228,
+--     'g'=0.02015,
+--     'h'=0.06094,
+--     'i'=0.06966,
+--     'j'=0.00153,
+--     'k'=0.00772,
+--     'l'=0.04025,
+--     'm'=0.02406,
+--     'n'=0.06749,
+--     'o'=0.07507,
+--     'p'=0.01929,
+--     'q'=0.00095,
+--     'r'=0.05987,
+--     's'=0.06327,
+--     't'=0.09056,
+--     'u'=0.02758,
+--     'v'=0.00978,
+--     'w'=0.02360,
+--     'x'=0.00150,
+--     'y'=0.01974,
+--     'z'=0.00074,
+
+-- }
+
+   -- -- Probability map for sampling neg samples:
+   -- local sampleClass
+   -- if oneVsAll then
+   --    -- Prob of sampling each class:
+   --    local probs = torch.ones(#classes)
+   --    probs[oneVsAllId] = 0
+
+   --    -- Weight file?
+   --    -- ==> a weight file can be provided to affect sampling within negative sets
+   --    if samplingWeights and paths.filep(samplingWeights) then
+   --       local weights = dofile(samplingWeights)
+   --       for i,class in ipairs(classes) do
+   --          local w = weights[class]
+   --          if w then
+   --             probs[i] = w
+   --          end
+   --       end
+   --    end
+
+   --    -- Pos class should be sampled as much as others:
+   --    probs[oneVsAllId] = probs:sum()
+
+   --    -- Normalize:
+   --    probs:div(probs:sum())
+
+   --    -- Print for training
+   --    print('samping distribution:')
+   --    if opt.path:find('train') then
+   --       for i = 1,probs:size(1) do
+   --          print(' + P(class='..classes[i]..') = ' .. probs[i])
+   --       end
+   --    end
+
+   --    -- Cumulated:
+   --    local cumProbs = probs:cumsum(1)
+
+   --    -- Sample class:
+   --    sampleClass = function()
+   --       local seed = torch.uniform(0,1)
+   --       for i = 1,cumProbs:size(1) do
+   --          if cumProbs[i] >= seed then
+   --             return i
+   --          end
+   --       end
+   --    end
+   -- end
+
+
+
 --********************************************
 --********************************************
 --********************************************

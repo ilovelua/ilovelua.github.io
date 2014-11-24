@@ -65,7 +65,7 @@ function frames(ifile)
    os.execute('th mosaic.lua --idir '..to..' --ofile '..to..'.jpg')
 end
 
-frames('/Volumes/laeh/sat-22-nov-soho-williamsburg-1.mp4')
+-- frames('/Volumes/laeh/sat-22-nov-soho-williamsburg-1.mp4')
 -- frames('/Volumes/laeh/sat-22-nov-soho-williamsburg-2.mp4')
 -- frames('/Volumes/laeh/sat-22-nov-williamsburg-soho-1.mp4')
 -- frames('/Volumes/laeh/sat-22-nov-williamsburg-soho-2.mp4')
@@ -81,8 +81,6 @@ frames('/Volumes/laeh/sat-22-nov-soho-williamsburg-1.mp4')
 --*          *
 --************
 
--- local testdir = desktop..'/'..'DISTORTED'
--- dir.makepath(testdir)
 function distort(idir)
    local angle = math.floor(torch.uniform(10,45))
    local blur = math.floor(torch.uniform(1,20))
@@ -110,7 +108,7 @@ function distort(idir)
       local time = math.floor(rdmlength / 30)
 
 
-   	local odir = testdir..'/'..path.basename(idir)..'-DISTORT-'..distortion['type']..'_'..time..'s'
+   	local odir = path.basename(idir)..'/distorted/'..path.basename(idir)..'-DISTORT-'..distortion['type']..'_'..time..'s'
    	dir.makepath(odir)
    	local rdmstart = math.floor(torch.uniform(0,nfile-rdmlength))
    	local rdmend = rdmstart + rdmlength
@@ -132,19 +130,24 @@ function distort(idir)
    	local movieFile = odir..'.mp4'
    	local sequenceCommand = './sequence -fps 30 '..odir.. '/*.jpg '..movieFile
    	os.execute(sequenceCommand)
-   	local mosaicFile = odir..'.jpg'
-   	local mosaicCommand = 'th mosaic.lua --idir '..odir
-   	os.execute(mosaicCommand)
-   	local deleteCommad = 'rm -r '..odir
-   	os.execute(deleteCommad)
+      local deleteCommad = 'rm -r '..odir
+      os.execute(deleteCommad)
+   	-- local mosaicFile = odir..'.jpg'
+   	-- local mosaicCommand = 'th mosaic.lua --idir '..odir
+   	-- os.execute(mosaicCommand)
+
    end
 end
 
-function process(idir)
-	for i = 1, 100 do
-		distort(idir)
-	end
-end
+            distort('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-1')
+-- print(mad.dir.imgs('/Volumes/laeh/test/sat-22-nov-soho-williamsburg-1'))
+
+-- function process(idir)
+-- 	for i = 1, 100 do
+-- 		distort(idir)
+-- 	end
+-- end
 
 -- process('/Users/laeh/Movies/la/rahan')
 -- wget "http://r2.o2.vc/Hollywood%20Movies/Sparkle%20(2012)/Sparkle.2012.SCAM.iMR@n.1.3gp"
+

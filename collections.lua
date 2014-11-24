@@ -58,10 +58,11 @@ end
    ╚═══════╝
 --]]
 
-function scroll()
+function scrollable_portrait_images()
+
+   -- Files
    local divs = {}
-   local files = mad.permute(mad.dir.imgs('img/collections'))
-   print(files)
+   local files = mad.permute(mad.dir.imgs('img/collections', 100))
    for i, file in ipairs(files)do
       table.insert(divs,
          mad.dom.DIV({
@@ -82,7 +83,34 @@ function scroll()
          })
       )
    end
-   return table.concat(divs)
+
+   -- Images
+   local scroll_section_content = table.concat(divs)
+   local scroll_section_content = mad.dom.DIV({
+      class = 'scroll_section_content',
+      content = table.concat(divs)
+   })
+
+
+   -- Header
+   local scroll_section_header = mad.dom.DIV({
+      class = 'scroll_section_header',
+      content = mad.dom.DIV({
+         class = 'title',
+         text = mad.rdm.title()
+      })
+   })
+
+   -- Wrap
+   local scroll_section = mad.dom.DIV({
+      class = 'scroll_section',
+      content = table.concat({
+         scroll_section_header,
+         scroll_section_content,
+      })
+   })
+   print(scroll_section)
+   return scroll_section
 end
 
 --[[
@@ -132,10 +160,7 @@ local page = mad.dom.DIV({
                class ='banner',
                content = banner()
             }),
-            mad.dom.DIV({
-               class ='scroll',
-               content = scroll()
-            }),
+            scrollable_portrait_images(),
             mad.dom.DIV({
                class ='links',
                content = links()
